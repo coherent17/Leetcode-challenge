@@ -15,11 +15,6 @@ int main(){
 // input arguments: array, length of the array, target value, the return array length (could be 2 or 0)
 // return: the address of the result (array)
 
-/*
-int* twoSum(int* nums, int numsSize, int target, int* returnSize){
-
-}*/
-
 //brute force: time complexity O(n^2)
 int* twoSum(int* nums, int numsSize, int target, int* returnSize){
     int i,j;
