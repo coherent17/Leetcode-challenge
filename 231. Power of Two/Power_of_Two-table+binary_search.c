@@ -13,6 +13,7 @@ int main(){
     return 0;
 }
 
+//time complexity:O(logn)
 bool binary_search(int *array, int left, int right, int number){
     while(left<=right){
         //midpoint index:

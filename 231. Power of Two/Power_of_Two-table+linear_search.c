@@ -13,6 +13,7 @@ int main(){
     return 0;
 }
 
+//time complexity:O(n)
 bool isPowerOfTwo(int n){
     if(n<=0) return false;
     int table[31]={1,2,4,8,16,32,64,128,256,512,1024,2048,4096,8192,16384,32768,65536
