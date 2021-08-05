@@ -12,7 +12,7 @@ int main(){
     return 0;
 }
 
-//time complexity:O(n)
+//time complexity:O(n), space complexity:O(1)
 int removeDuplicates(int* nums, int numsSize){
     if(numsSize==0) return 0;
     int i=0;
