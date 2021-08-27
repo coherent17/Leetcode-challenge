@@ -1,0 +1,54 @@
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+};
+
+struct TreeNode *createNode(int value){
+    struct TreeNode *newnode = malloc(sizeof(struct TreeNode));
+    newnode->val = value;
+    newnode->left = NULL;
+    newnode->right = NULL;
+    return newnode;
+}
+
+bool hasPathSum(struct TreeNode* root, int targetSum){
+    if(root==NULL)
+        return false;
+    if(root->left==NULL && root->right==NULL && root->val==targetSum)
+        return true;
+    //since left and right have either or neither oppurtunity to satisfied the result using or operator
+    return hasPathSum(root->left, targetSum - root->val) || hasPathSum(root->right, targetSum - root->val);
+}
+
+int main(){
+    struct TreeNode *node1 = createNode(5);
+    struct TreeNode *node2 = createNode(4);
+    struct TreeNode *node3 = createNode(11);
+    struct TreeNode *node4 = createNode(7);
+    struct TreeNode *node5 = createNode(2);
+    struct TreeNode *node6 = createNode(8);
+    struct TreeNode *node7 = createNode(13);
+    struct TreeNode *node8 = createNode(4);
+    struct TreeNode *node9 = createNode(1);
+
+    struct TreeNode *root = node1;
+
+    node1->left = node2;
+    node2->left = node3;
+    node3->left = node4;
+    node3->right = node5;
+    node1->right = node6;
+    node6->left = node7;
+    node6->right = node8;
+    node8->right = node9;
+
+    int result = hasPathSum(root, 22);
+    printf("%d\n", result);
+
+    return 0;
+}
