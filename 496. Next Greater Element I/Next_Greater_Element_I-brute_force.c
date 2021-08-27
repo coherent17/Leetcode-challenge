@@ -32,6 +32,7 @@ int NextGreaterElement(int *nums2, int nums2Size, int index, int value){
     return -1;
 }
 
+//time complexity: O(nums1.length * nums2.length)
 int* nextGreaterElement(int* nums1, int nums1Size, int* nums2, int nums2Size, int* returnSize){
     int *result = malloc(sizeof(int) * nums1Size);
     (*returnSize) = nums1Size;
