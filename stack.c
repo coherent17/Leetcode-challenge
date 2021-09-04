@@ -1,7 +1,6 @@
 #include "stack.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
 extern int STACK_EMPTY;
 int STACK_EMPTY = (-2147483648);
