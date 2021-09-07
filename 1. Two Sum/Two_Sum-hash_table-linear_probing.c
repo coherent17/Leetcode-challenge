@@ -9,7 +9,9 @@ typedef struct{
     int index;
 } table;
 
-void init_hash_table(table *hash_table){
+table hash_table[TABLE_SIZE];
+
+void init_hash_table(){
     for (int i = 0; i < TABLE_SIZE;i++){
         hash_table[i].value = EMPTY;
     }
@@ -17,10 +19,10 @@ void init_hash_table(table *hash_table){
 
 int hash(int value){
     value = value > 0 ? value : -value;
-    return value % TABLE_SIZE;
+    return (value*26) % TABLE_SIZE;
 }
 
-void insert_hash_table(int value, int index, table *hash_table){
+void insert_hash_table(int value, int index){
     int hash_index = hash(value);
     for (int i = 0; i < TABLE_SIZE;i++){
         int try = (hash_index + i) % TABLE_SIZE;
@@ -32,7 +34,7 @@ void insert_hash_table(int value, int index, table *hash_table){
     }
 }
 
-int hash_table_search(int value, table *hash_table){
+int hash_table_search(int value){
     int hash_index = hash(value);
     for (int i = 0; i < TABLE_SIZE;i++){
         int try = (hash_index + i) % TABLE_SIZE;
@@ -54,13 +56,13 @@ int* twoSum(int* nums, int numsSize, int target, int* returnSize){
     int *result = malloc(sizeof(int) * (*returnSize));
 
     for (int i = 0; i < numsSize;i++){
-        insert_hash_table(nums[i], i, hash_table);
+        insert_hash_table(nums[i], i);
     }
 
     int i, j;
     for (i = 0; i < numsSize; i++){
         int compliment = target - nums[i];
-        int index = hash_table_search(compliment, hash_table);
+        int index = hash_table_search(compliment);
 
         //nums = [3,2,4], target = 6, avoid 3 + 3 condition 
         if(nums[i]*2==target){
@@ -85,7 +87,7 @@ int* twoSum(int* nums, int numsSize, int target, int* returnSize){
     return result;
 }
 
-void print_hash_table(table *hash_table){
+void print_hash_table(){
     for (int i = 0; i < TABLE_SIZE;i++){
         if(hash_table[i].value!=EMPTY){
             printf("hash index = %d, value = %d, index = %d\n", i, hash_table[i].value, hash_table[i].index);
@@ -99,5 +101,6 @@ int main(){
     int target = 9;
     int *result = twoSum(nums, sizeof(nums) / sizeof(int), target, &returnSize);
     printf("%d %d\n", result[0], result[1]);
+    print_hash_table();
     return 0;
 }
