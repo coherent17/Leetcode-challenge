@@ -46,6 +46,7 @@ int hash_table_search(int value, table *hash_table){
     return -1;
 }
 
+//time complexity: O(n)
 int* twoSum(int* nums, int numsSize, int target, int* returnSize){
     table hash_table[TABLE_SIZE];
     init_hash_table(hash_table);
