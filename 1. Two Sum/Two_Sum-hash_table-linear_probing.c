@@ -17,7 +17,7 @@ void init_hash_table(table *hash_table){
 
 int hash(int value){
     value = value > 0 ? value : -value;
-    return (value * 3) % TABLE_SIZE;
+    return value % TABLE_SIZE;
 }
 
 void insert_hash_table(int value, int index, table *hash_table){
