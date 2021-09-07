@@ -19,7 +19,7 @@ void init_hash_table(){
 
 int hash(int value){
     value = value > 0 ? value : -value;
-    return (value*26) % TABLE_SIZE;
+    return (value*3) % TABLE_SIZE;
 }
 
 void insert_hash_table(int value, int index){
@@ -56,33 +56,15 @@ int* twoSum(int* nums, int numsSize, int target, int* returnSize){
     int *result = malloc(sizeof(int) * (*returnSize));
 
     for (int i = 0; i < numsSize;i++){
-        insert_hash_table(nums[i], i);
-    }
-
-    int i, j;
-    for (i = 0; i < numsSize; i++){
         int compliment = target - nums[i];
         int index = hash_table_search(compliment);
-
-        //nums = [3,2,4], target = 6, avoid 3 + 3 condition 
-        if(nums[i]*2==target){
-            int flag = 0;
-            for (j = 0; j < numsSize && flag<2;j++){
-                if(nums[j]==nums[i])
-                    flag++;
-            }
-            if(flag==2){
-                result[0] = i;
-                result[1] = j-1;
-                break;
-            }
-        }
-
-        else if(index!=-1){
+        if(index!=-1){
             result[0] = i;
             result[1] = index;
             break;
         }
+        else
+            insert_hash_table(nums[i], i);
     }
     return result;
 }
