@@ -1,8 +1,5 @@
 #define SIZE 100000
 
-int size = 0;
-int MaxHeap[SIZE];
-
 void swap(int *a, int *b){
     int temp = *a;
     *a = *b;
@@ -24,25 +21,27 @@ void heapify(int *MaxHeap, int size, int i){
     }
 }
 
-void insert(int *MaxHeap, int element_to_insert){
-    MaxHeap[size] = element_to_insert;
-    size += 1;
+void insert(int *MaxHeap, int element_to_insert, int *size){
+    MaxHeap[*size] = element_to_insert;
+    *size += 1;
     //loop to heapify
     int i;
-    for (i = size / 2 - 1; i >= 0;i--){
-        heapify(MaxHeap, size, i);
+    for (i = *size / 2 - 1; i >= 0;i--){
+        heapify(MaxHeap, *size, i);
     }
 }
 
-void delete(int *MaxHeap){
-    swap(&MaxHeap[0], &MaxHeap[size - 1]);
-    size -= 1;
-    for (int i = size / 2 - 1; i >= 0;i--){
-        heapify(MaxHeap, size, i);
+void delete(int *MaxHeap, int *size){
+    swap(&MaxHeap[0], &MaxHeap[*size - 1]);
+    *size -= 1;
+    for (int i = *size / 2 - 1; i >= 0;i--){
+        heapify(MaxHeap, *size, i);
     }
 }
 
 int furthestBuilding(int* heights, int heightsSize, int bricks, int ladders){
+	int size = 0;
+	int MaxHeap[SIZE];
 	int i;
 	int diff = 0;
 	for(i = 0; i < heightsSize - 1; i++){
@@ -55,12 +54,12 @@ int furthestBuilding(int* heights, int heightsSize, int bricks, int ladders){
 		bricks -= diff;
 
 		//adding # of bricks in max heap
-		insert(MaxHeap, diff);
+		insert(MaxHeap, diff, &size);
 
 		//if bricks become negative, using ladder to replace the max element in heap
 		if(bricks < 0){
 			bricks += MaxHeap[0];
-			delete(MaxHeap);
+			delete(MaxHeap, &size);
 			ladders--;
 		}
 
