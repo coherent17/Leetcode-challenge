@@ -12,14 +12,15 @@ int scheduleCourse(int** courses, int coursesSize, int* coursesColSize){
 
 	for(int i = 0; i < coursesSize; i++){
 		if(time + courses[i][0] <= courses[i][1]){
-			count++;
 			time += courses[i][0];
+			courses[count] = courses[i];
+			count++;
 		}
 
 		//find a maximum duration taken course
 		else{
 			int max_i = i;
-			for(int j = 0; j < i; j++){
+			for(int j = 0; j < count; j++){
 				if(courses[j][0] > courses[max_i][0]) max_i = j;
 			}
 
@@ -27,7 +28,7 @@ int scheduleCourse(int** courses, int coursesSize, int* coursesColSize){
 			if(max_i != i) time += courses[i][0] - courses[max_i][0];
 
 			//mark as -1 so that we will not take this class anymore
-			courses[max_i][0] = -1;
+			courses[max_i] = courses[i];
 		}
 	}
 	return count;
